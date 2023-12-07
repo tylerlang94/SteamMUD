@@ -10,7 +10,8 @@ public class TelnetServer
 {
     private TcpListener listener;
     private bool isRunning;
-
+    
+    // Starts the telnet server
     public void Start(string ipAddress, int port)
     {
         try
