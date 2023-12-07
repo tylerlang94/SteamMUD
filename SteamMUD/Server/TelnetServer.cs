@@ -11,6 +11,14 @@ public class TelnetServer
 {
     private TcpListener listener;
     private bool isRunning;
+    private string steamModBanner = @" __ _                                      ___ 
+/ _\ |_ ___  __ _ _ __ ___   /\/\  /\ /\  /   \
+\ \| __/ _ \/ _` | '_ ` _ \ /    \/ / \ \/ /\ /
+_\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_// 
+\__/\__\___|\__,_|_| |_| |_\/    \/\___/___,'";
+    private string welcomeMessage = "\nWelcome to the start of your adventure in the world of SteamMOD!\nTo exit the program, type 'quit'!\n";
+
+    public event Action<string, int, string> CommandReceived;
     
     // Starts the telnet server
     public void Start(string ipAddress, int port)
@@ -61,29 +69,29 @@ public class TelnetServer
             // Get client IP and port
             string clientAddress = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
             int clientPort = ((IPEndPoint)client.Client.RemoteEndPoint).Port;
-            
-            Console.WriteLine($"New client connected: IP {clientAddress} Port: {clientPort}/n");
-            
+
+            Console.WriteLine($"New client connected: IP {clientAddress} Port: {clientPort}");
+
             NetworkStream stream = client.GetStream();
 
-            string steamModBanner = @" __ _                                      ___ 
-/ _\ |_ ___  __ _ _ __ ___   /\/\  /\ /\  /   \
-\ \| __/ _ \/ _` | '_ ` _ \ /    \/ / \ \/ /\ /
-_\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_// 
-\__/\__\___|\__,_|_| |_| |_\/    \/\___/___,'";
-            
-            string welcomeMessage = "\nWelcome to the start of your adventure in the world of SteamMOD!\nTo exit the program, type 'quit'!\n";
             byte[] steamModBannerByte = Encoding.ASCII.GetBytes(steamModBanner);
             byte[] welcomeMessageByte = Encoding.ASCII.GetBytes(welcomeMessage);
-            
+
             stream.Write(steamModBannerByte, 0, steamModBannerByte.Length);
             stream.Write(welcomeMessageByte, 0, welcomeMessageByte.Length);
-            
+
             // Processes incoming chats
             while (isRunning)
             {
                 byte[] buffer = new byte[1024];
                 int bytesRead = stream.Read(buffer, 0, buffer.Length);
+
+                // If no bytes coming in, the client has disconnected
+                if (bytesRead == 0)
+                {
+                    Console.WriteLine($"Client Disconnected from {clientAddress}:{clientPort}");
+                    break;
+                }
 
                 string command = Encoding.ASCII.GetString(buffer, 0, bytesRead);
 
@@ -94,15 +102,21 @@ _\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_//
                 else
                 {
                     Console.WriteLine($"Received command from {clientAddress}:{clientPort} - {command}");
+                    OnCommandReceived(clientAddress, clientPort, command);
                 }
-
-                client.Close();
-                Console.WriteLine($"Client Disconnected from {clientAddress}:{clientPort}");
             }
         }
         catch (SocketException ex)
         {
             Console.WriteLine($"ERROR handling the client connection: {ex.Message}");
         }
+        finally
+        {
+            client.Close();
+        }
+    }
+    protected virtual void OnCommandReceived(string clientAddress, int clientPort, string command)
+    {
+        CommandReceived?.Invoke(clientAddress, clientPort, command);
     }
 }
