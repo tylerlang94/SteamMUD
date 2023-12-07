@@ -31,7 +31,7 @@ public class TelnetServer
             {
                 TcpClient client = listener.AcceptTcpClient();
 
-                Thread clientThread = new Thread(HandleClient);
+                Thread clientThread = new Thread(HandleClient!);
                 clientThread.Start(client);
             }
         }
@@ -66,8 +66,17 @@ public class TelnetServer
             
             NetworkStream stream = client.GetStream();
 
-            string welcomeMessage = "Welcome to your SteamMUD adventure! Type 'quit' to exit";
+            string steamModBanner = @" __ _                                      ___ 
+/ _\ |_ ___  __ _ _ __ ___   /\/\  /\ /\  /   \
+\ \| __/ _ \/ _` | '_ ` _ \ /    \/ / \ \/ /\ /
+_\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_// 
+\__/\__\___|\__,_|_| |_| |_\/    \/\___/___,'";
+            
+            string welcomeMessage = "\nWelcome to the start of your adventure in the world of SteamMOD!\nTo exit the program, type 'quit'!\n";
+            byte[] steamModBannerByte = Encoding.ASCII.GetBytes(steamModBanner);
             byte[] welcomeMessageByte = Encoding.ASCII.GetBytes(welcomeMessage);
+            
+            stream.Write(steamModBannerByte, 0, steamModBannerByte.Length);
             stream.Write(welcomeMessageByte, 0, welcomeMessageByte.Length);
             
             // Processes incoming chats
