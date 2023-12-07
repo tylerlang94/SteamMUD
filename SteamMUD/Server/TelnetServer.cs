@@ -45,10 +45,9 @@ public class TelnetServer
     {
         if (isRunning)
         {
+            Console.WriteLine("Telnet server has been stopped");
             listener.Stop();
             isRunning = false;
-            
-            Console.WriteLine("Telnet server has been stopped");
         }
     }
     
@@ -63,8 +62,8 @@ public class TelnetServer
             string clientAddress = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
             int clientPort = ((IPEndPoint)client.Client.RemoteEndPoint).Port;
             
-            Console.WriteLine($"New client connected: IP {clientAddress} Port: {clientPort}");
-
+            Console.WriteLine($"New client connected: IP {clientAddress} Port: {clientPort}/n");
+            
             NetworkStream stream = client.GetStream();
 
             string welcomeMessage = "Welcome to your SteamMUD adventure! Type 'quit' to exit";

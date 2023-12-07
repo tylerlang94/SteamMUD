@@ -8,7 +8,7 @@ public class Program
         TelnetServer telnet = new();
         
         telnet.Start("127.0.0.1", 8080);
-
+        Console.WriteLine("");
         Console.ReadLine();
         
         telnet.Stop();
