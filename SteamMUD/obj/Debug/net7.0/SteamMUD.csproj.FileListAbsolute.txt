@@ -1,0 +1,15 @@
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/bin/Debug/net7.0/SteamMUD
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/bin/Debug/net7.0/SteamMUD.deps.json
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/bin/Debug/net7.0/SteamMUD.runtimeconfig.json
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/bin/Debug/net7.0/SteamMUD.dll
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/bin/Debug/net7.0/SteamMUD.pdb
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/SteamMUD.csproj.AssemblyReference.cache
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/SteamMUD.GeneratedMSBuildEditorConfig.editorconfig
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/SteamMUD.AssemblyInfoInputs.cache
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/SteamMUD.AssemblyInfo.cs
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/SteamMUD.csproj.CoreCompileInputs.cache
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/SteamMUD.dll
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/refint/SteamMUD.dll
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/SteamMUD.pdb
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/SteamMUD.genruntimeconfig.cache
+/Users/tylerlang/Library/Mobile Documents/com~apple~CloudDocs/C#/SteamMUD/SteamMUD/obj/Debug/net7.0/ref/SteamMUD.dll
