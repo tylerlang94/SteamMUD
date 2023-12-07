@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace SteamMUD.Server;
 
@@ -52,8 +53,48 @@ public class TelnetServer
     }
     
     // Will handle connections
-    private void HandleClient()
+    private void HandleClient(object clientObj)
     {
-        
+        TcpClient client = (TcpClient)clientObj;
+
+        try
+        {
+            // Get client IP and port
+            string clientAddress = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
+            int clientPort = ((IPEndPoint)client.Client.RemoteEndPoint).Port;
+            
+            Console.WriteLine($"New client connected: IP {clientAddress} Port: {clientPort}");
+
+            NetworkStream stream = client.GetStream();
+
+            string welcomeMessage = "Welcome to your SteamMUD adventure! Type 'quit' to exit";
+            byte[] welcomeMessageByte = Encoding.ASCII.GetBytes(welcomeMessage);
+            stream.Write(welcomeMessageByte, 0, welcomeMessageByte.Length);
+            
+            // Processes incoming chats
+            while (isRunning)
+            {
+                byte[] buffer = new byte[1024];
+                int bytesRead = stream.Read(buffer, 0, buffer.Length);
+
+                string command = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+
+                if (command.Trim().ToLower() == "quit")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"Received command from {clientAddress}:{clientPort} - {command}");
+                }
+
+                client.Close();
+                Console.WriteLine($"Client Disconnected from {clientAddress}:{clientPort}");
+            }
+        }
+        catch (SocketException ex)
+        {
+            Console.WriteLine($"ERROR handling the client connection: {ex.Message}");
+        }
     }
 }
