@@ -20,7 +20,11 @@ _\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_//
 
     public event Action<string, int, string> CommandReceived;
     
-    // Starts the telnet server
+    /// <summary>
+    /// Starts the telnet server on the IP and Port specified
+    /// </summary>
+    /// <param name="ipAddress"></param>
+    /// <param name="port"></param>
     public void Start(string ipAddress, int port)
     {
         try
@@ -49,6 +53,9 @@ _\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_//
         }
     }
 
+    /// <summary>
+    /// Stops the telnet server
+    /// </summary>
     public void Stop()
     {
         if (isRunning)
@@ -59,7 +66,10 @@ _\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_//
         }
     }
     
-    // Will handle connections
+    /// <summary>
+    /// Handles clients communication
+    /// </summary>
+    /// <param name="clientObj"></param>
     private void HandleClient(object clientObj)
     {
         TcpClient client = (TcpClient)clientObj;
@@ -67,7 +77,7 @@ _\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_//
         try
         {
             // Get client IP and port
-            string clientAddress = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
+            string clientAddress = (((IPEndPoint)client.Client.RemoteEndPoint)).Address.ToString();
             int clientPort = ((IPEndPoint)client.Client.RemoteEndPoint).Port;
 
             Console.WriteLine($"New client connected: IP {clientAddress} Port: {clientPort}");
@@ -115,6 +125,14 @@ _\ \ ||  __/ (_| | | | | | / /\/\ \ \_/ / /_//
             client.Close();
         }
     }
+    
+    /// <summary>
+    /// Invokes the Commands from the console.
+    /// TODO: Get this working!!!
+    /// </summary>
+    /// <param name="clientAddress"></param>
+    /// <param name="clientPort"></param>
+    /// <param name="command"></param>
     protected virtual void OnCommandReceived(string clientAddress, int clientPort, string command)
     {
         CommandReceived?.Invoke(clientAddress, clientPort, command);

@@ -1,9 +1,14 @@
 ﻿using SteamMUD;
 using SteamMUD.Server;
+using Serilog;
+
 public class Program
 {
     public static void Main()
     {
+        // Configure SeriLog logger
+        Log.Logger = new LoggerConfiguration().CreateLogger();
+        
         TelnetServer telnet = new TelnetServer();
         Commands commandHandler = new Commands();
 
